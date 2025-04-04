@@ -2,15 +2,13 @@ require "sinatra"
 require "sinatra/reloader"
 
 get("/") do
-  "
-  <h1>Welcome to your Sinatra App!</h1>
-  <p>Define some routes in app.rb</p>
-  "
+  erb(:homepage)
 end
 
 get("/rock") do
   shapes = ["rock", "paper", "scissors"]
   @user_choice = "rock"
+  
 
   @comp_choice = shapes.sample
 
