@@ -5,16 +5,24 @@ get("/") do
   erb(:homepage)
 end
 
-get("/rock") do
+get("/:shape") do
   shapes = ["rock", "paper", "scissors"]
-  @user_choice = "rock"
-  
 
+  @user_choice = params.fetch("shape")
+  
   @comp_choice = shapes.sample
 
-  if @comp_choice == "rock"
+  if @comp_choice == @user_choice
     @result = "tied"
-  elsif @comp_choice == "paper"
+  elsif @comp_choice == "paper" && @user_choice == "rock"
+    @result = "lost"
+  elsif @comp_choice == "paper" && @user_choice == "scissors"
+    @result = "won"
+  elsif @comp_choice == "rock" && @user_choice == "scissors"
+    @result = "lost"
+  elsif @comp_choice == "rock" && @user_choice == "paper"
+    @result = "won"
+  elsif @comp_choice == "scissors" && @user_choice == "paper"
     @result = "lost"
   else
     @result = "won"
@@ -22,40 +30,4 @@ get("/rock") do
   
   erb(:moves)
   
-end
-
-get("/paper") do
-  shapes = ["rock", "paper", "scissors"]
-
-  @user_choice = "paper"
-  
-  @comp_choice = shapes.sample
-
-  if @comp_choice == "rock"
-    @result = "won"
-  elsif @comp_choice == "paper"
-    @result = "tied"
-  else
-    @result = "lost"
-  end
-  
-  erb(:moves)
-end
-
-get("/scissors") do
-  shapes = ["rock", "paper", "scissors"]
-
-  @user_choice = "scissors"
-  
-  @comp_choice = shapes.sample
-
-  if @comp_choice == "rock"
-    @result = "lost"
-  elsif @comp_choice == "paper"
-    @result = "won"
-  else
-    @result = "tied"
-  end
-  
-  erb(:moves)
 end
